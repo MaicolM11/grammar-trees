@@ -13,11 +13,11 @@ public class Tree {
     public Tree(List<String> v, String axiom, Map<String, List<String>> p) {
         V = v;
         P = p;
-        this.root = new Node(axiom, 0);
-        init(root);
+        this.root = new Node(null, axiom, 0);
+        buildTree(root);
     }
 
-    private void init(Node node) {
+    private void buildTree(Node node) {
         if (node.level == MAX_LEVEL) return;
         String val = node.info; // abS
         OptionalInt noTerminal = findVariable(val); // {S} solo para un no terminal
@@ -26,9 +26,9 @@ public class Tree {
             List<String> replaces = P.getOrDefault(character, new ArrayList<>()); // S -> {xA}, {xxB}
 
             for (String replace : replaces) {  // S -> {xA}, {xxB}
-                Node aux = new Node(node, val.replace(character, replace), node.level + 1);
+                Node aux = new Node(node, val.replaceFirst(character, replace), node.level + 1);
                 node.nodeList.add(aux);
-                init(aux);
+                buildTree(aux);
             }
         }
     }
@@ -42,12 +42,8 @@ public class Tree {
     }
 
     private void print(Node node) {
-        String value = "\t".repeat(node.level) + node.info;
-        if (findVariable(node.info).isPresent()) {
-            System.out.println(value);
-        } else {
-            System.out.println("\u001B[31m" + value + "\u001B[0m");
-        }
+        String word = findVariable(node.info).isPresent() ? node.info : "\u001B[31m" + node.info + "\u001B[0m";
+        System.out.println("\t".repeat(node.level) + word);
         node.nodeList.forEach(this::print);
     }
 

@@ -10,16 +10,10 @@ public class Node {
     protected Node parent;
     protected int level;
 
-    Node(String info, int level) {
+    public Node(Node parent, String info, int level) {
         this.info = info;
         this.level = level;
-        this.nodeList = new ArrayList<Node>();
-    }
-
-    Node(Node parent, String info, int level) {
-        this.info = info;
-        this.level = level;
-        this.nodeList = new ArrayList<Node>();
+        this.nodeList = new ArrayList<>();
         this.parent = parent;
     }
 
