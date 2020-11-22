@@ -13,7 +13,7 @@ public class Node {
     public Node(Node parent, String info, int level) {
         this.info = info;
         this.level = level;
-        this.nodeList = new ArrayList<>();
+        this.nodeList = new ArrayList<Node>();
         this.parent = parent;
     }
 
