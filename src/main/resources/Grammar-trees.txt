@@ -1,0 +1,46 @@
+5
+
+x y
+S A T
+S
+3
+S A
+A xA xT
+T y A
+xxxy
+
+m n λ
+S A B
+S
+3
+B λ m
+A Bn Am n
+S Am
+mnmmm
+
+0 1
+D E F
+D
+3
+D E1 F
+E 0E 0
+F 1F 1
+1111
+
+a b
+S A B C
+S
+3
+C Ca b
+B Ba Ca bb
+S A B
+bbaaaa
+
+a b λ
+S A T
+S
+3
+S AA λ
+A aA aT
+T bT aA
+aabb

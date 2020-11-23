@@ -1,9 +1,11 @@
 package models;
 
 import java.io.PrintWriter;
-import java.util.*;
-
-import models.Node;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 public class Tree {
 
@@ -18,9 +20,9 @@ public class Tree {
     public Tree(List<String> v, String axiom, Map<String, List<String>> p) {
         V = v;
         P = p;
-        this.axiom=axiom;
+        this.axiom = axiom;
         this.root = new Node(null, axiom, 0);
-        words= new ArrayList<>();
+        words = new ArrayList<>();
         buildTree(root);
     }
 
@@ -31,15 +33,13 @@ public class Tree {
         if (noTerminal.isPresent()) {
             String character = "" + (char) noTerminal.getAsInt(); // S
             List<String> replaces = P.getOrDefault(character, new ArrayList<>()); // S -> {xA}, {xxB}
-
             for (String replace : replaces) {  // S -> {xA}, {xxB}
-                Node aux = new Node(node, val.replaceFirst(character, replace.equals("λ")?"":replace), node.level + 1);
+                Node aux = new Node(node, val.replaceFirst(character, replace), node.level + 1);
                 node.nodeList.add(aux);
                 buildTree(aux);
             }
-        }
-        else {
-        	words.add(node);
+        } else {
+            words.add(node);
         }
     }
 
@@ -48,25 +48,25 @@ public class Tree {
     }
 
     public void print(PrintWriter printWriter) {
-        this.print(root,printWriter);
+        this.print(root, printWriter);
     }
 
-    private void print(Node node,PrintWriter printWriter) {
-    	if (node.level==4) return ;
+    private void print(Node node, PrintWriter printWriter) {
+        if (node.level == 4) return;
         String word = findVariable(node.info).isPresent() ? node.info : "\u001B[31m" + node.info + "\u001B[0m";
-        printWriter.println("\t".repeat(node.level) + node.info);
-        node.nodeList.forEach(x->print(x,printWriter));
+        printWriter.println("\t".repeat(node.level) + word);
+        node.nodeList.forEach(x -> print(x, printWriter));
     }
-    
+
     public String findWord(String word) {
-    	String exit="";
-    	Optional<Node> searchNode=words.stream().filter(x-> x.info.equals(word)).findFirst();
-    	if (searchNode.isPresent()) {
-			for (Node i = searchNode.get(); i.parent != null ; i=i.parent) {
-				exit="-->"+i.info + exit;
-			}
-			exit=axiom + exit;
-		}
-    	return exit;
+        StringBuilder exit = new StringBuilder();
+        Optional<Node> searchNode = words.stream().filter(x -> x.info.replaceAll("λ","").equals(word)).findFirst();
+        if (searchNode.isPresent()) {
+            for (Node i = searchNode.get(); i.parent != null; i = i.parent) {
+                exit.insert(0, "-->" + i.info);
+            }
+            exit.insert(0, axiom);
+        }
+        return exit.toString();
     }
 }

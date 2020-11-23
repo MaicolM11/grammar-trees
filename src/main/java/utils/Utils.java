@@ -5,55 +5,45 @@ import java.util.List;
 import java.util.Map;
 
 public class Utils {
-	
-	private String axiom;
-	private List<String> V;
-	private List<String> E;
-	private Map<String, List<String>> productions;
-	
 
-	public Utils(String axiom, List<String> V,List<String> E ,Map<String, List<String>> productions) {
-    this.axiom=axiom;
-    this.V=V;
-    this.E=E;
-    this.productions=productions;
-	}
-	
-	public boolean validate() {
-		return axiomIsNotTerminal() && VisdisjuntcE() && correctProductions();
-	}
-	
-	private boolean axiomIsNotTerminal() {
-		return (V.contains(axiom));
-	}
+    private final String axiom;
+    private final List<String> V;
+    private final List<String> E;
+    private final Map<String, List<String>> productions;
 
-	private boolean VisdisjuntcE() {
-		for (String terminals : E) {
-			if (V.contains(terminals))
-				return false;
-		}
-		return true;
-	}
+    public Utils(String axiom, List<String> V, List<String> E, Map<String, List<String>> productions) {
+        this.axiom = axiom;
+        this.V = V;
+        this.E = E;
+        this.productions = productions;
+    }
 
-	private boolean correctProductions() {
-		long keysError = productions.keySet().stream().filter(x -> !(V.contains(x))).count();
-		if (keysError > 0) {
-			return false;
-		} else {
-			Collection<List<String>> listAsign = productions.values();
-			for (List<String> list : listAsign) {
-				for (String asign : list) {
-					char[] characters = asign.toCharArray();
-					for (int i = 0; i < characters.length; i++) {
-						if (!(V.contains("" + characters[i])) && !(E.contains("" + characters[i])))
-							return false;
-					}
+    public boolean validate() {
+        return axiomIsNotTerminal() && VisdisjuntcE() && correctProductions();
+    }
 
-				}
-			}
-			return true;
-		}
+    private boolean axiomIsNotTerminal() {
+        return V.contains(axiom);
+    }
 
-	}
+    private boolean VisdisjuntcE() {
+        return E.stream().noneMatch(V::contains);
+    }
+
+    private boolean correctProductions() {
+        long keysError = productions.keySet().stream().filter(x -> !(V.contains(x))).count();
+        if (keysError > 0) return false;
+        Collection<List<String>> listAssign = productions.values();
+        for (List<String> list : listAssign) {
+            for (String assign : list) {
+                char[] characters = assign.toCharArray();
+                for (char character : characters) {
+                    if (!(V.contains("" + character)) && !(E.contains("" + character)))
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
 
 }
