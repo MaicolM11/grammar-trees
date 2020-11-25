@@ -34,7 +34,7 @@ S
 C Ca b
 B Ba Ca bb
 S A B
-bbaaaa
+bbaaaaaaaaaaa
 
 a b λ
 S A T

@@ -1,0 +1,88 @@
+-- CASO #1 -------------------------------------------------------------------
+Arbol de derivación general: 
+
+S
+	A
+		xA
+			xxA
+			xxT
+		xT
+			xy
+			xA
+
+La palabra xxxy pertenece al lenguaje
+S-->A-->xA-->xxA-->xxxT-->xxxy
+------------------------------------------------------------------------------
+
+-- CASO #2 -------------------------------------------------------------------
+Arbol de derivación general: 
+
+S
+	Am
+		Bnm
+			λnm
+			mnm
+		Amm
+			Bnmm
+			Ammm
+			nmm
+		nm
+
+La palabra mnmmm pertenece al lenguaje
+S-->Am-->Amm-->Ammm-->Bnmmm-->mnmmm
+------------------------------------------------------------------------------
+
+-- CASO #3 -------------------------------------------------------------------
+Arbol de derivación general: 
+
+D
+	E1
+		0E1
+			00E1
+			001
+		01
+	F
+		1F
+			11F
+			11
+		1
+
+La palabra 1111 pertenece al lenguaje
+D-->F-->1F-->11F-->111F-->1111
+------------------------------------------------------------------------------
+
+-- CASO #4 -------------------------------------------------------------------
+Arbol de derivación general: 
+
+S
+	A
+	B
+		Ba
+			Baa
+			Caa
+			bba
+		Ca
+			Caa
+			ba
+		bb
+
+La palabra bbaaaaaaaaaaa pertenece al lenguaje
+S-->B-->Ba-->Baa-->Baaa-->Baaaa-->Baaaaa-->Baaaaaa-->Baaaaaaa-->Baaaaaaaa-->Baaaaaaaaa-->Baaaaaaaaaa-->Baaaaaaaaaaa-->bbaaaaaaaaaaa
+------------------------------------------------------------------------------
+
+-- CASO #5 -------------------------------------------------------------------
+Arbol de derivación general: 
+
+S
+	AA
+		aAA
+			aaAA
+			aaTA
+		aTA
+			abTA
+			aaAA
+	λ
+
+La palabra aabb no pertenece al lenguaje
+------------------------------------------------------------------------------
+

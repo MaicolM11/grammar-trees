@@ -9,11 +9,11 @@ import java.util.OptionalInt;
 
 public class Tree {
 
-    public static final int MAX_LEVEL = 10;
+    public static final int MAX_LEVEL = 15;
 
     private final Node root;
     private final List<String> V;  // list of no terminals
-    private final Map<String, List<String>> P; // map of properties
+    private final Map<String, List<String>> P; // map of productions    S {aX , Bx}
     private final List<Node> words;
     private final String axiom;
 
@@ -26,6 +26,7 @@ public class Tree {
         buildTree(root);
     }
 
+    // construye el arbol
     private void buildTree(Node node) {
         if (node.level == MAX_LEVEL) return;
         String val = node.info; // abS
@@ -43,6 +44,7 @@ public class Tree {
         }
     }
 
+    // busca en una cadena si tiene un simbolo no terminal y cuál
     private OptionalInt findVariable(String info) {
         return info.chars().filter(x -> V.contains("" + (char) x)).findFirst();
     }
@@ -58,6 +60,7 @@ public class Tree {
         node.nodeList.forEach(x -> print(x, printWriter));
     }
 
+    // busca en la lista de palabras si esta la recibida por parametro
     public String findWord(String word) {
         StringBuilder exit = new StringBuilder();
         Optional<Node> searchNode = words.stream().filter(x -> x.info.replaceAll("λ","").equals(word)).findFirst();

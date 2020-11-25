@@ -45,6 +45,7 @@ public class App {
         evaluateCase(axiom, notTerminals, terminals, productions, word);
     }
 
+    // evalua los datos de la gramatica, imprime el arbol general - particular,
     private static void evaluateCase(String axiom, List<String> V, List<String> E, Map<String, List<String>> productions, String word) {
         Utils utils = new Utils(axiom, V, E, productions);
         if (utils.validate()) {
@@ -60,7 +61,7 @@ public class App {
                 printWriter.println(result);
             }
         } else {
-            printWriter.println("Parametros invalidados. Revice que todos los parametros cumplan con las reglas.\nEj: λ ∈ Σ");
+            printWriter.println("Parametros invalidados. Revise que todos los parametros cumplan con las reglas.\nEj: λ ∈ Σ");
         }
     }
 }

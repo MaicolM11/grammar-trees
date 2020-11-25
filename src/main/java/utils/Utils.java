@@ -30,7 +30,7 @@ public class Utils {
         return E.stream().noneMatch(V::contains);
     }
 
-    private boolean correctProductions() {
+    private boolean correctProductions() { // S -> ab
         long keysError = productions.keySet().stream().filter(x -> !(V.contains(x))).count();
         if (keysError > 0) return false;
         Collection<List<String>> listAssign = productions.values();
